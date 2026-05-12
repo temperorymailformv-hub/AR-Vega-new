@@ -43,7 +43,7 @@
 </head>
 
 <body>
-  <div id="vr-warning">Use WebXR or desktop mode. Press 1/2/3 or VR trigger/A/X to switch sections. Click objects to interact.</div>
+  <div id="vr-warning">VR: Trigger to teleport, A/X to switch sections. Desktop: WASD to move, 1/2/3 to switch. Click objects to interact.</div>
   <a-scene vr-mode-ui="enabled: true" fog="type: exponential; color: #b7d7f7; density: 0.01" background="color: #b7d7f7">
     <a-assets>
       <img id="sandTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" />
@@ -60,7 +60,7 @@
                   material="color: #ffdd99; shader: flat"></a-entity>
       </a-entity>
       <a-entity oculus-touch-controls="hand: left" vr-controls></a-entity>
-      <a-entity oculus-touch-controls="hand: right" vr-controls></a-entity>
+      <a-entity oculus-touch-controls="hand: right" vr-controls raycaster="objects: .teleportable; showLine: true; lineColor: #ff0000"></a-entity>
       <a-entity hand-tracking-controls="hand: left" vr-controls></a-entity>
       <a-entity hand-tracking-controls="hand: right" vr-controls></a-entity>
     </a-entity>
@@ -69,7 +69,7 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.1" position="-5 12 5" rotation="-45 25 0"></a-entity>
     <a-entity light="type: hemisphere; skyColor: #8fb7d0; groundColor: #b78f5d; intensity: 0.5"></a-entity>
 
-    <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" material="src: #sandTexture; repeat: 50 50"></a-plane>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" material="src: #sandTexture; repeat: 50 50" class="teleportable"></a-plane>
   </a-scene>
 </body>
 

@@ -1,7 +1,7 @@
 AFRAME.registerComponent('vr-controls', {
   init: function () {
     this.el.addEventListener('triggerdown', () => {
-      this.switchSection();
+      this.teleport();
     });
     this.el.addEventListener('abuttondown', () => {
       this.switchSection();
@@ -9,6 +9,17 @@ AFRAME.registerComponent('vr-controls', {
     this.el.addEventListener('xbuttondown', () => {
       this.switchSection();
     });
+  },
+
+  teleport: function () {
+    const raycaster = this.el.components.raycaster;
+    if (!raycaster) return;
+    const intersections = raycaster.intersections;
+    if (intersections.length > 0) {
+      const point = intersections[0].point;
+      const cameraRig = this.el.sceneEl.querySelector('#cameraRig');
+      cameraRig.setAttribute('position', `${point.x} 1.6 ${point.z}`);
+    }
   },
 
   switchSection: function () {

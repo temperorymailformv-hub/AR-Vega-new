@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Immersive Ancient India: AR/VR Experience</title>
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  <script src="src/data/historical-data.js"></script>
+  <script src="src/scene.js"></script>
+  <script src="src/npc-system.js"></script>
+  <script src="src/merchant-system.js"></script>
+  <script src="src/war-system.js"></script>
+  <script src="src/ui.js"></script>
+  <script src="src/audio-system.js"></script>
+  <script src="src/vr-controls.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    a-scene {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #vr-warning {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: #f8f1d6;
+      font-family: sans-serif;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="vr-warning">Use WebXR or desktop mode. Press 1/2/3 or VR trigger/A/X to switch sections. Click objects to interact.</div>
+  <a-scene vr-mode-ui="enabled: true" fog="type: exponential; color: #b7d7f7; density: 0.01" background="color: #b7d7f7">
+    <a-assets>
+      <img id="sandTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" />
+      <audio id="marketAmbience" src="https://cdn.aframe.io/basic-guide/audio/background_noise.wav"></audio>
+    </a-assets>
+
+    <a-sky color="#8fb7d0"></a-sky>
+    <a-entity id="scene-root" scene-manager immersion-ui audio-system war-system></a-entity>
+
+    <a-entity id="cameraRig" position="0 1.6 5">
+      <a-entity camera look-controls="pointerLockEnabled: true" wasd-controls="acceleration: 20">
+        <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -0.5"
+                  geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+                  material="color: #ffdd99; shader: flat"></a-entity>
+      </a-entity>
+      <a-entity oculus-touch-controls="hand: left" vr-controls></a-entity>
+      <a-entity oculus-touch-controls="hand: right" vr-controls></a-entity>
+      <a-entity hand-tracking-controls="hand: left" vr-controls></a-entity>
+      <a-entity hand-tracking-controls="hand: right" vr-controls></a-entity>
+    </a-entity>
+
+    <a-entity light="type: ambient; color: #f2e7d0; intensity: 0.9"></a-entity>
+    <a-entity light="type: directional; color: #ffffff; intensity: 1.1" position="-5 12 5" rotation="-45 25 0"></a-entity>
+    <a-entity light="type: hemisphere; skyColor: #8fb7d0; groundColor: #b78f5d; intensity: 0.5"></a-entity>
+
+    <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" material="src: #sandTexture; repeat: 50 50"></a-plane>
+  </a-scene>
+</body>
+
+</html>
